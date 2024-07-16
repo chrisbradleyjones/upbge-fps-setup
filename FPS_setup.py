@@ -2,6 +2,7 @@
 #
 #  FPS setup, a Blender addon
 #  (c) 2016 Tim Crellin (Thatimst3r)
+#  (c) 2024 Chris Bradley (chrisbradleyjones)
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -19,7 +20,18 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-bl_info = {"name": "FPS setup", "category": "Game Engine", "author": "Tim Crellin (Thatimst3r) contributions by google and coffee", "blender": (2,77,0), "location": "View3D > UI toolbar (n)", "description":"Adds a simple FPS setup at cursor location","warning": "","wiki_url":"", "tracker_url": "", "version":(1,0)}
+bl_info = {
+"name": "FPS setup",
+"category": "Game Engine",
+"author": "Tim Crellin (Thatimst3r) contributions by Chris Bradley, google and coffee",
+"blender": (2,79,0),
+"location": "View3D > UI toolbar (n)",
+"description":"Adds a simple FPS setup at cursor location",
+"warning": "",
+"wiki_url":"",
+"tracker_url": "",
+"version":(1,1)
+}
 
 import bpy
 import math
@@ -30,7 +42,10 @@ def setup():
 
     #----body----#
     #add the main body
-    bpy.types.MESH_OT_primitive_cylinder_add.vertices = bpy.props.IntProperty(name="Vertices",default=12)
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices = 32,
+        depth = 3.4
+        )
     bpy.ops.mesh.primitive_cylinder_add()
     body = bpy.context.object
     body.name = 'player_body'
@@ -156,7 +171,7 @@ def set_cam():
 
 class AddFPS(bpy.types.Operator):
     bl_idname = "object.add_fps"
-    bl_description = 'Add a simple FPS setup at 3d cursor'
+    bl_description = 'Add a simple FPS setup at 3D cursor'
     bl_label = "Add FPS"
     bl_options = {"REGISTER","UNDO"}
     
